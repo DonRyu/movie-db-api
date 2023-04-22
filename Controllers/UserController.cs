@@ -9,7 +9,7 @@ namespace movie_db_api.Controllers
     {
 		public UserController()
 		{
-
+			
 		}
 	}
 }
