@@ -5,12 +5,11 @@ namespace movie_db_api.Controllers
 {
 	[ApiController]
 	[Route("controller")]
-	public class UserController : Microsoft.AspNetCore.Mvc.ControllerBase
+	public class UserController : ControllerBase
     {
-		public UserController()
-		{
-			
-		}
+		
+		
+
 	}
 }
 

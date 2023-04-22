@@ -1,9 +1,12 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿global using movie_db_api.Models;
+global using Microsoft.EntityFrameworkCore;
+global using movie_db_api.Data;
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddDbContext<ApiDbContext>(options => 
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
