@@ -49,9 +49,15 @@ namespace movie_db_api.Controllers
 
         [HttpDelete]
         [Route("delete")]
-        public async Task<IActionResult> Delete([FromBody] User user)
+        public async Task<IActionResult> Delete(int id)
         {
-            _context.Users.Remove(user);
+
+            var driver = await _context.Users.FindAsync(id);
+            if(driver == null)
+            {
+                return NotFound();
+            }
+            _context.Users.Remove(driver);
             await _context.SaveChangesAsync();
             return Ok();
         }
