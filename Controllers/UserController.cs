@@ -68,6 +68,10 @@ namespace movie_db_api.Controllers
             await _context.SaveChangesAsync();
             return Ok();
         }
+
+        public void CreateToken (){
+            return;
+        }
     }
 }
 
