@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace movie_db_api.Controllers
 {
 
-    public interface postUser{
+    public interface postUser
+    {
         string nickname { get; set; }
         string email { get; set; }
         string password { get; set; }
@@ -60,7 +61,7 @@ namespace movie_db_api.Controllers
         {
 
             var driver = await _context.Users.FindAsync(id);
-            if(driver == null)
+            if (driver == null)
             {
                 return NotFound();
             }
@@ -69,9 +70,7 @@ namespace movie_db_api.Controllers
             return Ok();
         }
 
-        public void CreateToken (){
-            return;
-        }
+       
     }
 }
 
