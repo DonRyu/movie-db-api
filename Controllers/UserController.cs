@@ -1,5 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace movie_db_api.Controllers
 {
@@ -17,27 +24,22 @@ namespace movie_db_api.Controllers
     {
 
         private readonly ApiDbContext _context;
+        private readonly IConfiguration _configuration;
 
         public UserController(ApiDbContext context)
         {
             _context = context;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
-        {
-            return Ok(await _context.Users.ToListAsync());
-        }
-
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            await _context.Users.FindAsync(id);
-            return Ok();
+            var user =  await _context.Users.FindAsync(id);
+            return Ok(user);
         }
 
         [HttpPost]
-        [Route("post")]
+        [Route("register")]
         public async Task<IActionResult> Post([FromBody] postUser user)
         {
             var newUser = new User { nickname = user.nickname, email = user.email, password = user.password };
@@ -69,8 +71,6 @@ namespace movie_db_api.Controllers
             await _context.SaveChangesAsync();
             return Ok();
         }
-
-       
     }
 }
 
