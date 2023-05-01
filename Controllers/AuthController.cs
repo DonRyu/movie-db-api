@@ -22,15 +22,18 @@ namespace JWT_NET_PRAC.Controllers
             _context = context;
         }
 
-
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login(UserDto request)
         {
             var users = await _context.Users.ToListAsync();
-            var filteredUsers =users.Where(u=>u.email == request.email);
+            var filteredUsers = users.Where(u => u.email == request.email && u.password == request.password);
+            if (!filteredUsers.Any())
+            {
+                return NotFound();
+            }
+            return Ok();
 
-            return Ok(filteredUsers);
         }
 
     }

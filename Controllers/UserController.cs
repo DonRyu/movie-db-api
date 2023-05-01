@@ -11,13 +11,6 @@ using Microsoft.IdentityModel.Tokens;
 namespace movie_db_api.Controllers
 {
 
-    public interface postUser
-    {
-        string nickname { get; set; }
-        string email { get; set; }
-        string password { get; set; }
-    }
-
     [ApiController]
     [Route("controller")]
     public class UserController : ControllerBase
@@ -40,7 +33,7 @@ namespace movie_db_api.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Post([FromBody] postUser user)
+        public async Task<IActionResult> Post([FromBody] User user)
         {
             var newUser = new User { nickname = user.nickname, email = user.email, password = user.password };
             _context.Users.Add(newUser);
