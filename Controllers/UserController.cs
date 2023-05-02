@@ -12,7 +12,7 @@ namespace movie_db_api.Controllers
 {
 
     [ApiController]
-    [Route("controller")]
+    [Route("User")]
     public class UserController : ControllerBase
     {
 

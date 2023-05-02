@@ -10,9 +10,8 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace JWT_NET_PRAC.Controllers
 {
-
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("auth")]
     public class AuthController : ControllerBase
     {
 
@@ -26,13 +25,15 @@ namespace JWT_NET_PRAC.Controllers
         [Route("login")]
         public async Task<IActionResult> Login(UserDto request)
         {
+
+            Console.WriteLine("request",request);
             var users = await _context.Users.ToListAsync();
             var filteredUsers = users.Where(u => u.email == request.email && u.password == request.password);
             if (!filteredUsers.Any())
             {
                 return NotFound();
             }
-            return Ok();
+            return Ok("Success");
 
         }
 
