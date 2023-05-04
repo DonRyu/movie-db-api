@@ -24,6 +24,30 @@ namespace JWT_NET_PRAC.Controllers
         }
 
         [HttpPost]
+        [Route("isLogin")]
+        public async Task<IActionResult> IsLogin(String token)
+        {
+            try
+            {
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var jwtToken = tokenHandler.ReadJwtToken(token);
+                var email = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+
+                var users = await _context.Users.ToListAsync();
+                var filteredUsers = users.Where(u => u.email == email);
+
+                return Ok(new {Login = true});
+
+            }
+            catch (SecurityTokenException)
+            {
+                return BadRequest("Invalid token");
+            }
+
+        }
+
+
+        [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login(UserDto request)
         {
@@ -34,8 +58,9 @@ namespace JWT_NET_PRAC.Controllers
                 return Ok(new { Msg = "Wrong account" });
             }
             string token = CreateToken(filteredUsers.ElementAt(0));
-            return Ok(new { Msg = "Success" });
+            return Ok(new { token });
         }
+
 
         private string CreateToken(User user)
         {
